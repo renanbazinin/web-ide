@@ -69,6 +69,73 @@ export const Chip = () => {
     tracking.trackEvent("action", "setChip", state.controls.chipName);
   }, []);
 
+  // AI function to call from console
+  useEffect(() => {
+    const aiFunction = async () => {
+      const validProjects = ["01", "02", "03", "05"];
+      const currentProject = state.controls.project;
+      
+      // Check if we're in a valid project
+      if (!validProjects.includes(currentProject)) {
+        console.log(`AI feature is only available for projects 1, 2, 3, or 5. Current project: ${currentProject}`);
+        return;
+      }
+
+      // Check if we have a chip loaded
+      if (!state.controls.chipName || state.controls.chipName === "") {
+        console.log("No chip is currently loaded. Please select a chip first.");
+        return;
+      }
+
+      // Get current HDL content
+      const currentHdl = hdl;
+      if (!currentHdl || currentHdl.trim() === "") {
+        console.log("Current HDL file is empty.");
+        return;
+      }
+
+      // Prepare the file as a Blob
+      const fileName = `${state.controls.chipName}.hdl`;
+      const fileBlob = new Blob([currentHdl], { type: "text/plain" });
+      const file = new File([fileBlob], fileName, { type: "text/plain" });
+
+      // Create FormData and append the file
+      const formData = new FormData();
+      formData.append("practiceFile", file);
+
+      console.log("Sending request to AI endpoint...", {
+        fileName: fileName,
+        project: currentProject,
+        contentLength: currentHdl.length,
+      });
+
+      try {
+        const response = await fetch("https://nand2tetrisai-881742200158.europe-west1.run.app/compare", {
+          method: "POST",
+          body: formData,
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json().catch(() => ({ error: "Unknown error" }));
+          throw new Error(errorData.error || `Server error: ${response.status}`);
+        }
+
+        const feedback = await response.text();
+        console.log("AI Response:", feedback);
+      } catch (error) {
+        console.error("Error calling AI endpoint:", error instanceof Error ? error.message : "An error occurred while comparing files");
+      }
+    };
+
+    // Expose the function globally so it can be called from console
+    (window as any).ai = aiFunction;
+
+    // Cleanup: remove the function when component unmounts
+    return () => {
+      delete (window as any).ai;
+    };
+  }, [state.controls.project, state.controls.chipName, hdl]);
+
   const doEval = useCallback(() => {
     actions.eval();
     tracking.trackEvent("action", "eval");
