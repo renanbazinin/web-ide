@@ -70,18 +70,15 @@ text {
   fill: var(--color);
 }
 
+// AI trigger button - matches folder button styling
 .ai-trigger-button {
-  border: none;
-  background: transparent;
   font-size: 1.2rem;
-  cursor: pointer;
-  padding: 0.25rem 0.5rem;
-  transition: transform 0.15s ease;
-
-  &:hover:enabled {
-    transform: scale(1.1);
+  
+  // Ensure tooltip works on button hover (same as folder button)
+  &[data-tooltip] {
+    position: relative;
   }
-
+  
   &:disabled {
     opacity: 0.4;
     cursor: not-allowed;

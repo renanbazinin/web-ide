@@ -283,7 +283,7 @@ export const Chip = () => {
             <button
               className="ai-trigger-button"
               data-tooltip="Send HDL to AI"
-              data-placement="left"
+              data-placement="bottom"
               onClick={triggerAi}
               disabled={state.controls.chipName === ""}
               aria-label="Ask AI for feedback"
