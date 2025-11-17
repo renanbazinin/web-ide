@@ -26,9 +26,11 @@ import { Timer } from "@nand2tetris/simulator/timer.js";
 import { TestPanel } from "src/shell/test_panel";
 import { AppContext } from "../App.context";
 import { PageContext } from "../Page.context";
+import { useAiCompare } from "../hooks/useAiCompare";
 import { Editor } from "../shell/editor";
 import { Accordian, Panel } from "../shell/panel";
 import { zip } from "../shell/zip";
+import { AIResponse, AIStatus } from "./AIResponse";
 
 interface CompileInput {
   hdl: string;
@@ -49,6 +51,10 @@ export const Chip = () => {
   const [out, setOut] = useStateInitializer(state.files.out);
   const [tstDir, setTstDir] = useStateInitializer(state.dir);
   const [tstPath, setTstPath] = useState<string>();
+  const [aiDialogOpen, setAiDialogOpen] = useState(false);
+  const [aiStatus, setAiStatus] = useState<AIStatus>("idle");
+  const [aiFeedback, setAiFeedback] = useState<string>();
+  const [aiError, setAiError] = useState<string>();
 
   useEffect(() => {
     if (tstPath) {
@@ -69,72 +75,35 @@ export const Chip = () => {
     tracking.trackEvent("action", "setChip", state.controls.chipName);
   }, []);
 
-  // AI function to call from console
-  useEffect(() => {
-    const aiFunction = async () => {
-      const validProjects = ["01", "02", "03", "05"];
-      const currentProject = state.controls.project;
-      
-      // Check if we're in a valid project
-      if (!validProjects.includes(currentProject)) {
-        console.log(`AI feature is only available for projects 1, 2, 3, or 5. Current project: ${currentProject}`);
-        return;
-      }
+  const { triggerAi } = useAiCompare(
+    {
+      project: state.controls.project,
+      chipName: state.controls.chipName,
+      hdlContent: hdl,
+    },
+    {
+      onStart: () => {
+        setAiStatus("loading");
+        setAiFeedback(undefined);
+        setAiError(undefined);
+        setAiDialogOpen(true);
+      },
+      onSuccess: (feedback) => {
+        setAiStatus("success");
+        setAiFeedback(feedback);
+        setAiDialogOpen(true);
+      },
+      onError: (message) => {
+        setAiStatus("error");
+        setAiError(message);
+        setAiDialogOpen(true);
+      },
+    },
+  );
 
-      // Check if we have a chip loaded
-      if (!state.controls.chipName || state.controls.chipName === "") {
-        console.log("No chip is currently loaded. Please select a chip first.");
-        return;
-      }
-
-      // Get current HDL content
-      const currentHdl = hdl;
-      if (!currentHdl || currentHdl.trim() === "") {
-        console.log("Current HDL file is empty.");
-        return;
-      }
-
-      // Prepare the file as a Blob
-      const fileName = `${state.controls.chipName}.hdl`;
-      const fileBlob = new Blob([currentHdl], { type: "text/plain" });
-      const file = new File([fileBlob], fileName, { type: "text/plain" });
-
-      // Create FormData and append the file
-      const formData = new FormData();
-      formData.append("practiceFile", file);
-
-      console.log("Sending request to AI endpoint...", {
-        fileName: fileName,
-        project: currentProject,
-        contentLength: currentHdl.length,
-      });
-
-      try {
-        const response = await fetch("https://nand2tetrisai-881742200158.europe-west1.run.app/compare", {
-          method: "POST",
-          body: formData,
-        });
-
-        if (!response.ok) {
-          const errorData = await response.json().catch(() => ({ error: "Unknown error" }));
-          throw new Error(errorData.error || `Server error: ${response.status}`);
-        }
-
-        const feedback = await response.text();
-        console.log("AI Response:", feedback);
-      } catch (error) {
-        console.error("Error calling AI endpoint:", error instanceof Error ? error.message : "An error occurred while comparing files");
-      }
-    };
-
-    // Expose the function globally so it can be called from console
-    (window as any).ai = aiFunction;
-
-    // Cleanup: remove the function when component unmounts
-    return () => {
-      delete (window as any).ai;
-    };
-  }, [state.controls.project, state.controls.chipName, hdl]);
+  const closeAiDialog = useCallback(() => {
+    setAiDialogOpen(false);
+  }, []);
 
   const doEval = useCallback(() => {
     actions.eval();
@@ -311,6 +280,16 @@ export const Chip = () => {
             >
               ⬇️
             </button>
+            <button
+              className="ai-trigger-button"
+              data-tooltip="Send HDL to AI"
+              data-placement="left"
+              onClick={triggerAi}
+              disabled={state.controls.chipName === ""}
+              aria-label="Ask AI for feedback"
+            >
+              🤖
+            </button>
           </fieldset>
         </>
       }
@@ -475,6 +454,14 @@ export const Chip = () => {
         {pinsPanel}
         {testPanel}
       </div>
+      <AIResponse
+        open={aiDialogOpen}
+        status={aiStatus}
+        feedback={aiFeedback}
+        error={aiError}
+        onClose={closeAiDialog}
+        onRetry={triggerAi}
+      />
     </>
   );
 };
