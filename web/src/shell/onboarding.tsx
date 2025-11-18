@@ -10,11 +10,21 @@ export const Onboarding = () => {
   const [dontShowAgain, setDontShowAgain] = useState(
     localStorage.getItem(ONBOARDING_DONT_SHOW_KEY) === "true",
   );
+  const [dismissedForSession, setDismissedForSession] = useState(false);
+
+  // Track the checkbox value locally; persistence happens on dismiss
+  const handleCheckboxChange = (checked: boolean) => {
+    setDontShowAgain(checked);
+  };
 
   useEffect(() => {
+    // Check localStorage directly to ensure we have the latest value
+    const shouldNotShow =
+      localStorage.getItem(ONBOARDING_DONT_SHOW_KEY) === "true";
+
     // Asynchronously decide whether to show, to give BaseContext time
     // to discover an existing local filesystem (synced folder).
-    if (localFsRoot || dontShowAgain) {
+    if (localFsRoot || shouldNotShow || dismissedForSession) {
       onboarding.close();
       return;
     }
@@ -22,7 +32,10 @@ export const Onboarding = () => {
     let cancelled = false;
     const timeout = setTimeout(() => {
       if (cancelled) return;
-      if (!localFsRoot && !dontShowAgain) {
+      // Check again in case localStorage changed
+      const stillShouldNotShow =
+        localStorage.getItem(ONBOARDING_DONT_SHOW_KEY) === "true";
+      if (!localFsRoot && !stillShouldNotShow && !dismissedForSession) {
         onboarding.open();
       }
     }, 400);
@@ -31,19 +44,22 @@ export const Onboarding = () => {
       cancelled = true;
       clearTimeout(timeout);
     };
-  }, [localFsRoot, dontShowAgain]);
+  }, [localFsRoot, dontShowAgain, dismissedForSession, onboarding]);
 
   useEffect(() => {
     // If user connects a local folder while onboarding is open, close it.
     if (localFsRoot) {
       onboarding.close();
     }
-  }, [localFsRoot]);
+  }, [localFsRoot, onboarding]);
 
   const handleDismiss = () => {
     if (dontShowAgain) {
       localStorage.setItem(ONBOARDING_DONT_SHOW_KEY, "true");
+    } else {
+      localStorage.removeItem(ONBOARDING_DONT_SHOW_KEY);
     }
+    setDismissedForSession(true);
     onboarding.close();
   };
 
@@ -93,7 +109,7 @@ export const Onboarding = () => {
             <input
               type="checkbox"
               checked={dontShowAgain}
-              onChange={(event) => setDontShowAgain(event.target.checked)}
+              onChange={(event) => handleCheckboxChange(event.target.checked)}
             />
             Don&apos;t show this again
           </label>
