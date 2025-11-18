@@ -13,6 +13,7 @@ import { messages, plMessages } from "./locales";
 import { FilePicker } from "./shell/file_select";
 import Footer from "./shell/footer";
 import Header from "./shell/header";
+import { Onboarding } from "./shell/onboarding";
 import { Settings } from "./shell/settings";
 import urls from "./urls";
 
@@ -75,6 +76,7 @@ function App() {
             <PageContextProvider>
               <Settings />
               <FilePicker />
+              <Onboarding />
               <Router basename={process.env.PUBLIC_URL}>
                 <Header />
                 <main className="flex flex-1">
