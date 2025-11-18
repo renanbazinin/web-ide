@@ -189,34 +189,8 @@ export const Settings = () => {
           </header>
           <main>
             <dl>
-              <header>
-                <Trans>Project</Trans>
-              </header>
               <dt>
-                <Trans>References</Trans>
-              </dt>
-              <dd>
-                <div>
-                  <a
-                    href="https://nand2tetris.org"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    nand2tetris.org
-                  </a>
-                </div>
-                <div>
-                  <a
-                    href="https://github.com/davidsouther/nand2tetris"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    GitHub
-                  </a>
-                </div>
-              </dd>
-              <dt>
-                <Trans>NAND2Tetris Project Files</Trans>
+                <Trans>Projects folder:</Trans>
               </dt>
               <dd>
                 <a
@@ -226,11 +200,13 @@ export const Settings = () => {
                   rel="noreferrer"
                   download="projects.zip"
                 >
-                  <Trans>Download the projects folder</Trans>
+                  <Trans>Download the zip file</Trans>
                 </a>
               </dd>
               <dt>
-                <Trans>Local Project Files</Trans>
+                <Trans>Select the projects folder:</Trans>
+                <br />
+                <Trans>location on your PC:</Trans>
               </dt>
               <dd>
                 {showUpgradeFs && canUpgradeFs && (
@@ -255,17 +231,6 @@ export const Settings = () => {
                         <Trans>Select a projects folder</Trans>
                       )}
                     </button>
-                    {localFsRoot && (
-                      <button
-                        onClick={async () => {
-                          await closeFs();
-                        }}
-                        data-tooltip={t`Close the locally opened projects folder, and instead store your files in the browser's local storage.`}
-                        data-placement="bottom"
-                      >
-                        <Trans>Use browser storage</Trans>
-                      </button>
-                    )}
                   </>
                 )}
                 {!localFsRoot && (
@@ -279,18 +244,7 @@ export const Settings = () => {
                 )}
               </dd>
               <dt>
-                <Trans>Language</Trans>
-              </dt>
-              <dd>
-                <button onClick={() => writeLocale("en")}>
-                  <Trans>English</Trans>
-                </button>
-                <button onClick={() => writeLocale("en-PL")}>
-                  <Trans>Pseudolocale</Trans>
-                </button>
-              </dd>
-              <dt>
-                <Trans>Editor</Trans>
+                <Trans>Editor:</Trans>
               </dt>
               <dd>
                 <label>
@@ -306,7 +260,7 @@ export const Settings = () => {
                 </label>
               </dd>
               <dt>
-                <Trans>Theme</Trans>
+                <Trans>Theme:</Trans>
               </dt>
               <dd>
                 <fieldset role="group">
@@ -341,6 +295,56 @@ export const Settings = () => {
                     <Trans>System</Trans>
                   </label>
                 </fieldset>
+              </dd>
+              <dt>
+                <Trans>Use browser storage</Trans>
+              </dt>
+              <dd>
+                {localFsRoot && (
+                  <button
+                    onClick={async () => {
+                      await closeFs();
+                    }}
+                    data-tooltip={t`Close the locally opened projects folder, and instead store your files in the browser's local storage.`}
+                    data-placement="bottom"
+                  >
+                    <Trans>Use browser storage</Trans>
+                  </button>
+                )}
+              </dd>
+              <dt>
+                <Trans>Language</Trans>
+              </dt>
+              <dd>
+                <button onClick={() => writeLocale("en")}>
+                  <Trans>English</Trans>
+                </button>
+                <button onClick={() => writeLocale("en-PL")}>
+                  <Trans>Pseudolocale</Trans>
+                </button>
+              </dd>
+              <dt>
+                <Trans>References</Trans>
+              </dt>
+              <dd>
+                <div>
+                  <a
+                    href="https://nand2tetris.org"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    nand2tetris.org
+                  </a>
+                </div>
+                <div>
+                  <a
+                    href="https://github.com/davidsouther/nand2tetris"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    GitHub
+                  </a>
+                </div>
               </dd>
               <dt>
                 <Trans>Tracking</Trans>
