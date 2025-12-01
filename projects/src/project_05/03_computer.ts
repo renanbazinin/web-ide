@@ -1,7 +1,6 @@
 export const hdl = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/5/Computer.hdl
 /**
  * The Hack computer, consisting of CPU, ROM and RAM.
  * When reset = 0, the program stored in the ROM executes.
@@ -19,20 +18,20 @@ CHIP Computer {
 
     PARTS:
     //// Replace this comment with your code.
-}`;
+}
+`;
 export const add_tst = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/5/ComputerAdd.tst
 
 // Tests the Computer chip by having it execute the program Add.hack.
 // The program adds up the constants 2 and 3 and writes the result in RAM[0]. 
 
+load Computer.hdl,
+output-file ComputerAdd.out,
+compare-to ComputerAdd.cmp,
 // Tracks the values of the time, reset bit, A-register, D-register,
 // program counter, R0, R1, and R2.
-
-load Computer.hdl,
-compare-to ComputerAdd.cmp,
 output-list time%S1.3.1 reset%B2.1.2 ARegister[0]%D1.7.1 DRegister[0]%D1.7.1 PC[]%D0.4.0 RAM16K[0]%D1.7.1 RAM16K[1]%D1.7.1 RAM16K[2]%D1.7.1;
 
 // Loads the binary program Add.hack into the computer's instruction memory 
@@ -54,7 +53,8 @@ set reset 0,
 
 repeat 6 {
     tick, tock, output;
-}`;
+}
+`;
 export const add_cmp = `|time |reset|ARegister|DRegister|PC[]|RAM16K[0]|RAM16K[1]|RAM16K[2]|
 | 0   |  0  |       0 |       0 |   0|       0 |       0 |       0 |
 | 1   |  0  |       2 |       0 |   1|       0 |       0 |       0 |
@@ -73,15 +73,15 @@ export const add_cmp = `|time |reset|ARegister|DRegister|PC[]|RAM16K[0]|RAM16K[1
 export const max_tst = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/5/ComputerMax.tst
 
 // Tests the Computer chip by having it execute the program Max.hack.
 // The program computes maximum(R0, R1) and writes the result in RAM[2].
 
+load Computer.hdl,
+output-file ComputerMax.out,
+compare-to ComputerMax.cmp,
 // Tracks the values of the time, reset bit, A-register, D-register,
 // program counter, R0, R1, and R2.
-load Computer.hdl,
-compare-to ComputerMax.cmp,
 output-list time%S1.3.1 reset%B2.1.2 ARegister[]%D1.7.1 DRegister[]%D1.7.1 PC[]%D0.4.0 RAM16K[0]%D1.7.1 RAM16K[1]%D1.7.1 RAM16K[2]%D1.7.1;
 
 // Loads the binary program Add.hack into the computer's instruction memory 
@@ -142,15 +142,15 @@ export const max_cmp = `|time |reset|ARegister|DRegister|PC[]|RAM16K[0]|RAM16K[1
 export const rect_tst = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/5/ComputerRect.tst
 
 // Tests the Computer chip by having it execute the program Rect.hack.
 // The program draws a rectangle of width 16 pixels and length RAM[0]
 // at the top left corner of the screen.
 
-// Tracks the values of the time, A-register, D-register, program counter, R0, R1, and R2.
 load Computer.hdl,
+output-file ComputerRect.out,
 compare-to ComputerRect.cmp,
+// Tracks the values of the time, A-register, D-register, program counter, R0, R1, and R2.
 output-list time%S1.3.1 ARegister[]%D1.7.1 DRegister[]%D1.7.1 PC[]%D0.4.0 RAM16K[0]%D1.7.1 RAM16K[1]%D1.7.1 RAM16K[2]%D1.7.1;
 
 // Loads the binary program Rect.hack into the computer's instruction memory 
@@ -166,7 +166,8 @@ output;
 
 repeat 63 {
     tick, tock, output;
-}`;
+}
+`;
 export const rect_cmp = `|time |ARegister|DRegister|PC[]|RAM16K[0]|RAM16K[1]|RAM16K[2]|
 | 0   |       0 |       0 |   0|       4 |       0 |       0 |
 | 1   |       0 |       0 |   1|       4 |       0 |       0 |

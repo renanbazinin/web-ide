@@ -1,7 +1,6 @@
 export const vm = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/7/MemoryAccess/PointerTest/PointerTest.vm
 
 // Executes pop and push commands using the 
 // pointer, this, and that segments.
@@ -26,11 +25,11 @@ add
 export const vm_tst = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/7/MemoryAccess/PointerTest/PointerTestVME.tst
 
 // Tests and illustrates PointerTest.vm on the VM simulator.
 
 load PointerTest.vm,
+output-file PointerTest.out,
 compare-to PointerTest.cmp,
 
 set RAM[0] 256,   // initializes the stack pointer
@@ -49,10 +48,11 @@ output;
 export const hdl_tst = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/7/MemoryAccess/PointerTest/PointerTest.tst
 
 // Tests PointerTest.asm on the CPU emulator.
 
+load PointerTest.asm,
+output-file PointerTest.out,
 compare-to PointerTest.cmp,
 
 set RAM[0] 256,   // initializes the stack pointer

@@ -1,7 +1,6 @@
 export const hdl = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/2/ALU.hdl
 /**
  * ALU (Arithmetic Logic Unit):
  * Computes out = one of the following functions:
@@ -83,11 +82,11 @@ export const cmp = `|        x         |        y         |zx |nx |zy |ny | f |n
 export const tst = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/2/ALU.tst
 
 load ALU.hdl,
+output-file ALU.out,
 compare-to ALU.cmp,
-output-list x%B1.16.1 y%B1.16.1 zx nx zy ny f no out zr ng;
+output-list x%B1.16.1 y%B1.16.1 zx nx zy ny f no out%B1.16.1 zr ng;
 
 set x %B0000000000000000,  // x = 0
 set y %B1111111111111111;  // y = -1
@@ -453,17 +452,20 @@ set ny 1,
 set f  0,
 set no 1,
 eval,
-output;`;
+output;
+`;
 export const basic_tst = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/2/ALU-basic.tst
 
 // Tests the basic version of the ALU chip.
 // DOES NOT replace the final test provided by ALU.tst.
 // Specifically: Tests the ALU logic that computes the 'out' output;
 // The 'zr' and 'ng' output bits are ignored.
 
+load ALU.hdl,
+output-file ALU-basic.out,
+compare-to ALU-basic.cmp,
 output-list x%B1.16.1 y%B1.16.1 zx nx zy ny f no out%B1.16.1;
 
 set x %B0000000000000000,
@@ -794,7 +796,8 @@ set ny 1,
 set f  0,
 set no 1,
 eval,
-output;`;
+output;
+`;
 export const basic_cmp = `|        x         |        y         |zx |nx |zy |ny | f |no |       out        |
 | 0000000000000000 | 1111111111111111 | 1 | 0 | 1 | 0 | 1 | 0 | 0000000000000000 |
 | 0000000000000000 | 1111111111111111 | 1 | 1 | 1 | 1 | 1 | 1 | 0000000000000001 |

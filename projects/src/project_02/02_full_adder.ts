@@ -1,7 +1,6 @@
 export const hdl = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/2/FullAdder.hdl
 /**
  * Computes the sum of three bits.
  */
@@ -25,9 +24,9 @@ export const cmp = `| a | b | c |sum|carry|
 export const tst = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/2/FullAdder.tst
 
 load FullAdder.hdl,
+output-file FullAdder.out,
 compare-to FullAdder.cmp,
 output-list a b c sum carry%B2.1.2;
 
@@ -67,4 +66,5 @@ output;
 
 set c 1,
 eval,
-output;`;
+output;
+`;

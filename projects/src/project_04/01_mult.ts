@@ -12,13 +12,13 @@ export const asm = `// This file is part of www.nand2tetris.org
 export const tst = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/4/mult/Mult.tst
 
 // Tests the Mult program, designed to compute R2 = R0 * R1.
 // Tests the program by having it multiply several sets of
 // R0 and R1 values.
 
 load Mult.asm,
+output-file Mult.out,
 compare-to Mult.cmp,
 output-list RAM[0]%D2.6.2 RAM[1]%D2.6.2 RAM[2]%D2.6.2;
 
@@ -85,7 +85,8 @@ repeat 210 {
 }
 set RAM[0] 6,   // Restores R0 and R1 in case the program changed them
 set RAM[1] 7,
-output;`;
+output;
+`;
 
 export const cmp = `|  RAM[0]  |  RAM[1]  |  RAM[2]  |
 |       0  |       0  |       0  |

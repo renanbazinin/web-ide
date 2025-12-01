@@ -1,7 +1,6 @@
 export const hdl = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/2/Inc16.hdl
 /**
  * 16-bit incrementer:
  * out = in + 1
@@ -22,9 +21,9 @@ export const cmp = `|        in        |       out        |
 export const tst = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/2/Inc16.tst
 
 load Inc16.hdl,
+output-file Inc16.out,
 compare-to Inc16.cmp,
 output-list in%B1.16.1 out%B1.16.1;
 
@@ -42,4 +41,5 @@ output;
 
 set in %B1111111111111011,  // in = -5
 eval,
-output;`;
+output;
+`;

@@ -1,7 +1,6 @@
 export const main = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/8/FunctionCalls/FibonacciElement/Main.vm
 
 // Contains one function: Main.fibonacci.
 
@@ -34,7 +33,6 @@ label N_GE_2               // if n >= 2 returns fib(n - 2) + fib(n - 1)
 export const sys = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/8/FunctionCalls/FibonacciElement/Sys.vm
 
 // Containts one function: Sys.init.
 
@@ -48,16 +46,17 @@ function Sys.init 0
 	// Calls the function, informing that one argument was pushed onto the stack
 	call Main.fibonacci 1
 label END  
-	goto END  // loops infinitely`;
+	goto END  // loops infinitely
+`;
 
 export const vm_tst = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/8/FunctionCalls/FibonacciElement/FibonacciElementVME.tst
 
 // Tests and illustrates the given Fibonacci element program on the VM emulator.
 
-load,
+load,  // loads all the VM files from the current folder
+output-file FibonacciElement.out,
 compare-to FibonacciElement.cmp,
 
 set sp 261,
@@ -75,12 +74,13 @@ output;
 export const hdl_tst = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/8/FunctionCalls/FibonacciElement/FibonacciElement.tst
 
 // Tests FibonacciElement.asm on the CPU emulator. 
 // FibonacciElement.asm results from translating Main.vm and Sys.vm into
 // a single assembly program, stored in the file FibonacciElement.asm.
 
+load FibonacciElement.asm,
+output-file FibonacciElement.out,
 compare-to FibonacciElement.cmp,
 
 repeat 6000 {

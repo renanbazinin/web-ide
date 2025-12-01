@@ -1,7 +1,6 @@
 export const class1 = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/8/FunctionCalls/StaticsTest/Class1.vm
 
 // Stores two supplied arguments in static[0] and static[1].
 function Class1.set 0
@@ -17,12 +16,12 @@ function Class1.get 0
 	push static 0
 	push static 1
 	sub
-	return`;
+	return
+`;
 
 export const class2 = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/8/FunctionCalls/StaticsTest/Class2.vm
 
 // Stores two supplied arguments in static[0] and static[1].
 function Class2.set 0
@@ -38,12 +37,12 @@ function Class2.get 0
 	push static 0
 	push static 1
 	sub
-	return`;
+	return
+`;
 
 export const sys = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/8/FunctionCalls/StaticsTest/Sys.vm
 
 // Tests that different functions, stored in two different 
 // class files, manipulate the static segment correctly. 
@@ -60,16 +59,17 @@ function Sys.init 0
 	call Class1.get 0
 	call Class2.get 0
 label END
-	goto END`;
+	goto END
+`;
 
 export const vm_tst = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/8/FunctionCalls/StaticsTest/StaticsTestVME.tst
 
 // Tests and illustrates the statics test on the VM emulator.
 
-load,
+load,  // loads all the VM files from the current folder
+output-file StaticsTest.out,
 compare-to StaticsTest.cmp,
 
 set sp 261,
@@ -85,11 +85,12 @@ output;
 export const hdl_tst = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/8/FunctionCalls/StaticsTest/StaticsTest.tst
 
 // Tests StaticTest.asm in the CPU emulator.
 // This assembly file results from translating the staticsTest folder.
 
+load StaticsTest.asm,
+output-file StaticsTest.out,
 compare-to StaticsTest.cmp,
 
 set RAM[0] 256,

@@ -1,7 +1,6 @@
 export const vm = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/7/MemoryAccess/StaticTest/StaticTest.vm
 
 // Executes pop and push commands using the static segment.
 
@@ -21,11 +20,11 @@ add
 export const vm_tst = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/7/MemoryAccess/StaticTest/StaticTestVME.tst
 
 // Tests and illustrates StaticTest.vm on the VM simulator.
 
 load StaticTest.vm,
+output-file StaticTest.out,
 compare-to StaticTest.cmp,
 
 set sp 256,    // initializes the stack pointer
@@ -42,10 +41,11 @@ output;
 export const hdl_tst = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/7/MemoryAccess/StaticTest/StaticTest.tst
 
 // Tests StaticTest.asm on the CPU emulator.
 
+load StaticTest.asm,
+output-file StaticTest.out,
 compare-to StaticTest.cmp,
 
 set RAM[0] 256,    // initializes the stack pointer

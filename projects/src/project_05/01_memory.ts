@@ -1,7 +1,6 @@
 export const hdl = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/5/Memory.hdl
 /**
  * The complete address space of the Hack computer's memory,
  * including RAM and memory-mapped I/O. 
@@ -14,8 +13,8 @@ export const hdl = `// This file is part of www.nand2tetris.org
  * available through the out output from the next time step onward.
  * Address space rules:
  * Only the upper 16K+8K+1 words of the Memory chip are used. 
- * Access to address>0x6000 is invalid and reads 0. Access to any address
- * in the range 0x4000-0x5FFF results in accessing the screen memory 
+ * Access to address>0x6000 is invalid. Access to any address in 
+ * the range 0x4000-0x5FFF results in accessing the screen memory 
  * map. Access to address 0x6000 results in accessing the keyboard 
  * memory map. The behavior in these addresses is described in the Screen
  * and Keyboard chip specifications given in the lectures and the book.
@@ -30,7 +29,6 @@ CHIP Memory {
 export const tst = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/05/Memory.tst
 
 // Tests the Memory chip by inputting values to selected addresses, 
 // verifying that these addresses were indeed written to, and verifying  
@@ -40,6 +38,7 @@ export const tst = `// This file is part of www.nand2tetris.org
 // (0, 8192 (8K), and 16385 (16K+1) in decimal).
 
 load Memory.hdl,
+output-file Memory.out,
 compare-to Memory.cmp,
 output-list in%D1.6.1 load%B2.1.2 address%B1.15.1 out%D1.6.1;
 
@@ -159,7 +158,7 @@ echo "Click the Keyboard icon and hold down the 'K' key (uppercase) until you se
 // the memory will zero itself before being outputted.
 
 while out <> 75 {
-    tick, tock;     // tick, tock prevents hang if sync. parts used in KB path.
+    tick, tock,     // tick, tock prevents hang if sync. parts used in KB path.
 }
 
 clear-echo,
@@ -212,11 +211,12 @@ echo "Two horizontal lines should be in the middle of the screen. Hold down 'Y' 
 // the memory will zero itself before being outputted.
 
 while out <> 89 {
-    tick, tock;     // tick, tock prevents hang if sync. parts used in KB path.
+    tick, tock,     // tick, tock prevents hang if sync. parts used in KB path.
 }
 
 clear-echo,
-output;`;
+output;
+`;
 export const cmp = `|   in   |load |     address     |  out   |
 |  12345 |  1  | 010000000000000 |      0 |
 |  12345 |  1  | 010000000000000 |  12345 |

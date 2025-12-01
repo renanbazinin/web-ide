@@ -1,7 +1,6 @@
 export const vm = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/8/FunctionCalls/SimpleFunction/SimpleFunction.vm
 
 // Performs a simple calculation and returns the result.
 // argument[0] and argument[1] must be set by the caller.
@@ -15,13 +14,11 @@ function SimpleFunction.test 2
 	add
 	push argument 1
 	sub
-	return
-`;
+	return`;
 
 export const vm_tst = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/8/FunctionCalls/SimpleFunction/SimpleFunctionVME.tst
 
 // Tests and illustrates SimpleFunction.vm in the VM emulator. 
 // Before executing the code, initializes the stack pointer
@@ -29,6 +26,7 @@ export const vm_tst = `// This file is part of www.nand2tetris.org
 // and sets some values in the argument segment.
 
 load SimpleFunction.vm,
+output-file SimpleFunction.out,
 compare-to SimpleFunction.cmp,
 
 set sp 317,
@@ -57,7 +55,6 @@ output;
 export const hdl_tst = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/8/FunctionCalls/SimpleFunction/SimpleFunction.tst
 
 // Tests SimpleFunction.asm in the CPU emulator.
 // In particular, tests how the assembly implementation of the 'function'
@@ -66,6 +63,8 @@ export const hdl_tst = `// This file is part of www.nand2tetris.org
 // Before executing the code, initializes the stack pointer and the pointers of some
 // of the memory segments, and sets some values in the argument segment.
 
+load SimpleFunction.asm,
+output-file SimpleFunction.out,
 compare-to SimpleFunction.cmp,
 
 set RAM[0] 317,    // SP

@@ -1,7 +1,6 @@
 export const hdl = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/3/b/RAM16K.hdl
 /**
  * Memory of 16K 16-bit registers.
  * If load is asserted, the value of the register selected by
@@ -14,13 +13,14 @@ CHIP RAM16K {
 
     PARTS:
     //// Replace this comment with your code.
-}`;
+}
+`;
 export const tst = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/3/b/RAM16K.tst
 
 load RAM16K.hdl,
+output-file RAM16K.out,
 compare-to RAM16K.cmp,
 output-list time%S1.3.1 in%D1.6.1 load%B2.1.1 address%D2.5.2 out%D1.6.1;
 
@@ -1039,7 +1039,8 @@ eval,
 output;
 set address %B11110101010101,
 eval,
-output;`;
+output;
+`;
 export const cmp = `|time |   in   |load| address |  out   |
 | 0+  |      0 |  0 |      0  |      0 |
 | 1   |      0 |  0 |      0  |      0 |

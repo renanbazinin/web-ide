@@ -1,7 +1,6 @@
 export const vm = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/8/ProgramFlow/BasicLoop/BasicLoop.vm
 
 // Computes the sum 1 + 2 + ... + n and pushes the result onto
 // the stack. The value n is given in argument[0], which must be 
@@ -26,7 +25,6 @@ label LOOP
 export const vm_tst = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/8/ProgramFlow/BasicLoop/BasicLoopVME.tst
 
 // Tests and illustrates BasicLoop.vm on the VM emulator.
 // Before executing the code, initializes the stack pointer
@@ -34,6 +32,7 @@ export const vm_tst = `// This file is part of www.nand2tetris.org
 // and sets argument[0].
 
 load BasicLoop.vm,
+output-file BasicLoop.out,
 compare-to BasicLoop.cmp,
 
 set sp 256,
@@ -53,13 +52,14 @@ output;
 export const hdl_tst = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/8/ProgramFlow/BasicLoop/BasicLoop.tst
 
 // Tests BasicLoop.asm on the CPU emulator.
 // Before executing the code, initializes the stack pointer
 // and the base addresses of the local and argument segments,
 // and sets argument[0].
 
+load BasicLoop.asm,
+output-file BasicLoop.out,
 compare-to BasicLoop.cmp,
 
 set RAM[0] 256,  // SP

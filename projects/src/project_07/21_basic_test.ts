@@ -1,7 +1,6 @@
 export const vm = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/7/MemoryAccess/BasicTest/BasicTest.vm
 
 // Executes pop and push commands.
 
@@ -35,13 +34,13 @@ add
 export const vm_tst = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/7/MemoryAccess/BasicTest/BasicTestVME.tst
 
 // Tests and illustrates BasicTest.vm on the VM simulator.
 // Starts by setting the stack pointer and the base addresses
-// of relevant memory segments to selected RAM addresses.
+// of relevant memory segments to selected RAM addresses.  
 
 load BasicTest.vm,
+output-file BasicTest.out,
 compare-to BasicTest.cmp,
 
 set sp 256,        // stack pointer
@@ -64,10 +63,11 @@ output;
 export const hdl_tst = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/7/MemoryAccess/BasicTest/BasicTest.tst
 
 // Tests BasicTest.asm on the CPU emulator.
 
+load BasicTest.asm,
+output-file BasicTest.out,
 compare-to BasicTest.cmp,
 
 set RAM[0] 256,   // stack pointer
