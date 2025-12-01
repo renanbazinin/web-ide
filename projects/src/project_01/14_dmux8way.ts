@@ -1,7 +1,6 @@
 export const hdl = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/1/DMux8Way.hdl
 /**
  * 8-way demultiplexor:
  * [a, b, c, d, e, f, g, h] = [in, 0,  0,  0,  0,  0,  0,  0] if sel = 000
@@ -19,14 +18,15 @@ CHIP DMux8Way {
 
     PARTS:
     //// Replace this comment with your code.
-}`;
+}
+`;
 
 export const tst = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/1/DMux8Way.tst
 
 load DMux8Way.hdl,
+output-file DMux8Way.out,
 compare-to DMux8Way.cmp,
 output-list in sel%B2.3.2 a b c d e f g h;
 
@@ -94,7 +94,8 @@ output;
 
 set sel %B111,
 eval,
-output;`;
+output;
+`;
 
 export const cmp = `|in |  sel  | a | b | c | d | e | f | g | h |
 | 0 |  000  | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
@@ -112,4 +113,5 @@ export const cmp = `|in |  sel  | a | b | c | d | e | f | g | h |
 | 1 |  100  | 0 | 0 | 0 | 0 | 1 | 0 | 0 | 0 |
 | 1 |  101  | 0 | 0 | 0 | 0 | 0 | 1 | 0 | 0 |
 | 1 |  110  | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 0 |
-| 1 |  111  | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 |`;
+| 1 |  111  | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 |
+`;

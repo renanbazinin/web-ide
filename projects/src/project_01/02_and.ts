@@ -1,7 +1,6 @@
 export const hdl = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/1/And.hdl
 /**
  * And gate:
  * if (a and b) out = 1, else out = 0 
@@ -16,9 +15,9 @@ CHIP And {
 export const tst = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/1/And.tst
 
 load And.hdl,
+output-file And.out,
 compare-to And.cmp,
 output-list a b out;
 
@@ -40,10 +39,12 @@ output;
 set a 1,
 set b 1,
 eval,
-output;`;
+output;
+`;
 
 export const cmp = `| a | b |out|
 | 0 | 0 | 0 |
 | 0 | 1 | 0 |
 | 1 | 0 | 0 |
-| 1 | 1 | 1 |`;
+| 1 | 1 | 1 |
+`;

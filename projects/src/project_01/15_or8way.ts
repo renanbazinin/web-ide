@@ -3,11 +3,11 @@ export const cmp = `|     in     |out|
 |  11111111  | 1 |
 |  00010000  | 1 |
 |  00000001  | 1 |
-|  00100110  | 1 |`;
+|  00100110  | 1 |
+`;
 export const hdl = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/1/Or8Way.hdl
 /**
  * 8-way Or gate: 
  * out = in[0] Or in[1] Or ... Or in[7]
@@ -22,9 +22,9 @@ CHIP Or8Way {
 export const tst = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/1/Or8Way.tst
 
 load Or8Way.hdl,
+output-file Or8Way.out,
 compare-to Or8Way.cmp,
 output-list in%B2.8.2 out;
 

@@ -6,11 +6,11 @@ export const cmp = `| a | b |sel|out|
 | 1 | 0 | 0 | 1 |
 | 1 | 0 | 1 | 0 |
 | 1 | 1 | 0 | 1 |
-| 1 | 1 | 1 | 1 |`;
+| 1 | 1 | 1 | 1 |
+`;
 export const hdl = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/1/Mux.hdl
 /** 
  * Multiplexor:
  * if (sel = 0) out = a, else out = b
@@ -25,9 +25,9 @@ CHIP Mux {
 export const tst = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/1/Mux.tst
 
 load Mux.hdl,
+output-file Mux.out,
 compare-to Mux.cmp,
 output-list a b sel out;
 
@@ -69,4 +69,5 @@ output;
 
 set sel 1,
 eval,
-output;`;
+output;
+`;

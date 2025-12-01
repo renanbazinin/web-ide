@@ -1,7 +1,6 @@
 export const hdl = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/1/DMux.hdl
 /**
  * Demultiplexor:
  * [a, b] = [in, 0] if sel = 0
@@ -13,13 +12,14 @@ CHIP DMux {
 
     PARTS:
     //// Replace this comment with your code.
-}`;
+}
+`;
 export const tst = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/1/DMux.tst
 
 load DMux.hdl,
+output-file DMux.out,
 compare-to DMux.cmp,
 output-list in sel a b;
 
@@ -39,10 +39,12 @@ output;
 
 set sel 1,
 eval,
-output;`;
+output;
+`;
 
 export const cmp = `|in |sel| a | b |
 | 0 | 0 | 0 | 0 |
 | 0 | 1 | 0 | 0 |
 | 1 | 0 | 1 | 0 |
-| 1 | 1 | 0 | 1 |`;
+| 1 | 1 | 0 | 1 |
+`;

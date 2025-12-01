@@ -1,7 +1,6 @@
 export const hdl = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/1/DMux4Way.hdl
 /**
  * 4-way demultiplexor:
  * [a, b, c, d] = [in, 0, 0, 0] if sel = 00
@@ -19,9 +18,9 @@ CHIP DMux4Way {
 export const tst = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/1/DMux4Way.tst
 
 load DMux4Way.hdl,
+output-file DMux4Way.out,
 compare-to DMux4Way.cmp,
 output-list in sel%B2.2.2 a b c d;
 
@@ -57,7 +56,8 @@ output;
 
 set sel %B11,
 eval,
-output;`;
+output;
+`;
 
 export const cmp = `|in | sel  | a | b | c | d |
 | 0 |  00  | 0 | 0 | 0 | 0 |
@@ -67,4 +67,5 @@ export const cmp = `|in | sel  | a | b | c | d |
 | 1 |  00  | 1 | 0 | 0 | 0 |
 | 1 |  01  | 0 | 1 | 0 | 0 |
 | 1 |  10  | 0 | 0 | 1 | 0 |
-| 1 |  11  | 0 | 0 | 0 | 1 |`;
+| 1 |  11  | 0 | 0 | 0 | 1 |
+`;

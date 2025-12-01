@@ -1,7 +1,6 @@
 export const hdl = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/1/And16.hdl
 /**
  * 16-bit And gate:
  * for i = 0, ..., 15:
@@ -17,9 +16,9 @@ CHIP And16 {
 export const tst = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/1/And16.tst
 
 load And16.hdl,
+output-file And16.out,
 compare-to And16.cmp,
 output-list a%B1.16.1 b%B1.16.1 out%B1.16.1;
 
@@ -59,4 +58,5 @@ export const cmp = `|        a         |        b         |       out        |
 | 1111111111111111 | 1111111111111111 | 1111111111111111 |
 | 1010101010101010 | 0101010101010101 | 0000000000000000 |
 | 0011110011000011 | 0000111111110000 | 0000110011000000 |
-| 0001001000110100 | 1001100001110110 | 0001000000110100 |`;
+| 0001001000110100 | 1001100001110110 | 0001000000110100 |
+`;

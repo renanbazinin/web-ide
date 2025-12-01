@@ -2,11 +2,11 @@ export const cmp = `| a | b |out|
 | 0 | 0 | 0 |
 | 0 | 1 | 1 |
 | 1 | 0 | 1 |
-| 1 | 1 | 0 |`;
+| 1 | 1 | 0 |
+`;
 export const hdl = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/1/Xor.hdl
 /**
  * Exclusive-or gate:
  * if ((a and Not(b)) or (Not(a) and b)) out = 1, else out = 0
@@ -21,9 +21,9 @@ CHIP Xor {
 export const tst = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/1/Xor.tst
 
 load Xor.hdl,
+output-file Xor.out,
 compare-to Xor.cmp,
 output-list a b out;
 
@@ -45,4 +45,5 @@ output;
 set a 1,
 set b 1,
 eval,
-output;`;
+output;
+`;
