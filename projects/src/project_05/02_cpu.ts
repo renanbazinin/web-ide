@@ -275,7 +275,8 @@ export const cmp = `|time| inM  |  instruction   |reset| outM  |writeM |addre| p
 |44+ | 11111|1110001100000111|  1  |*******|   0   | 1000| 1000|      1 |
 |45  | 11111|1110001100000111|  1  |*******|   0   | 1000|    0|      1 |
 |45+ | 11111|0111111111111111|  0  |*******|   0   | 1000|    0|      1 |
-|46  | 11111|0111111111111111|  0  |*******|   0   |32767|    1|      1 |`;
+|46  | 11111|0111111111111111|  0  |*******|   0   |32767|    1|      1 |
+`;
 
 export const external_tst = `// This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
