@@ -14,7 +14,7 @@ import JSZip from "jszip";
  * This URL always points to the latest release.
  */
 export const PROJECTS_ZIP_URL =
-  "https://github.com/nand2tetris/projects/releases/latest/download/projects.zip";
+  "https://renanbazinin.github.io/projects/projects.zip";
 
 /**
  * Get the fallback URL for projects.zip served locally.
