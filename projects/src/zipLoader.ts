@@ -144,13 +144,14 @@ async function ensureDir(fs: FileSystem, dirPath: string): Promise<void> {
 async function fetchZipWithFallback(
   primaryUrl: string,
   useFallback: boolean,
-): Promise<ArrayBuffer> {
+): Promise<{ data: ArrayBuffer; source: "release" | "local" }> {
   try {
     const response = await fetch(primaryUrl);
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}: ${response.statusText}`);
     }
-    return await response.arrayBuffer();
+    const data = await response.arrayBuffer();
+    return { data, source: "release" };
   } catch (primaryError) {
     if (!useFallback) {
       throw primaryError;
@@ -170,7 +171,8 @@ async function fetchZipWithFallback(
           `HTTP ${fallbackResponse.status}: ${fallbackResponse.statusText}`,
         );
       }
-      return await fallbackResponse.arrayBuffer();
+      const data = await fallbackResponse.arrayBuffer();
+      return { data, source: "local" };
     } catch (fallbackError) {
       throw new Error(
         `Failed to fetch ZIP from both primary (${primaryUrl}) and fallback (${fallbackUrl}): ${fallbackError}`,
@@ -190,7 +192,7 @@ export async function loadFromZip(
   fs: FileSystem,
   zipUrl: string = PROJECTS_ZIP_URL,
   options: LoadFromZipOptions = {},
-): Promise<void> {
+): Promise<"release" | "local"> {
   const {
     skipExisting = true,
     basePath = "/projects",
@@ -199,8 +201,8 @@ export async function loadFromZip(
   } = options;
 
   // Fetch the ZIP file with fallback support
-  const zipData = await fetchZipWithFallback(zipUrl, useFallback);
-  const zip = await JSZip.loadAsync(zipData);
+  const fetched = await fetchZipWithFallback(zipUrl, useFallback);
+  const zip = await JSZip.loadAsync(fetched.data);
 
   // Count total files for progress
   const files = Object.entries(zip.files).filter(([, f]) => !f.dir);
@@ -240,6 +242,8 @@ export async function loadFromZip(
     loadedFiles++;
     onProgress?.(loadedFiles, totalFiles);
   }
+
+  return fetched.source;
 }
 
 /**
@@ -250,8 +254,8 @@ export async function resetFromZip(
   fs: FileSystem,
   zipUrl: string = PROJECTS_ZIP_URL,
   options: Omit<LoadFromZipOptions, "skipExisting"> = {},
-): Promise<void> {
-  await loadFromZip(fs, zipUrl, { ...options, skipExisting: false });
+): Promise<"release" | "local"> {
+  return await loadFromZip(fs, zipUrl, { ...options, skipExisting: false });
 }
 
 /**
@@ -262,8 +266,8 @@ export async function createFromZip(
   fs: FileSystem,
   zipUrl: string = PROJECTS_ZIP_URL,
   options: Omit<LoadFromZipOptions, "skipExisting"> = {},
-): Promise<void> {
-  await loadFromZip(fs, zipUrl, { ...options, skipExisting: true });
+): Promise<"release" | "local"> {
+  return await loadFromZip(fs, zipUrl, { ...options, skipExisting: true });
 }
 
 /**
@@ -323,8 +327,8 @@ export async function loadFromZipData(
 export async function getProjectIdsFromZip(
   zipUrl: string = PROJECTS_ZIP_URL,
 ): Promise<string[]> {
-  const zipData = await fetchZipWithFallback(zipUrl, true);
-  const zip = await JSZip.loadAsync(zipData);
+  const fetched = await fetchZipWithFallback(zipUrl, true);
+  const zip = await JSZip.loadAsync(fetched.data);
 
   const projectIds = new Set<string>();
   for (const relativePath of Object.keys(zip.files)) {

@@ -22,10 +22,17 @@ export async function resetFiles(
   projects?: (keyof typeof Projects)[],
   options?: LoadFromZipOptions,
 ) {
+  console.log("Initializing: resetting browser memory (projects)...");
   try {
     // Try ZIP-based loading first
-    await resetFromZip(fs, PROJECTS_ZIP_URL, options);
-    console.log("Successfully loaded project files from ZIP");
+    const source = await resetFromZip(fs, PROJECTS_ZIP_URL, options);
+    if (source === "release") {
+      console.log("Reset completed: loaded project files from release ZIP");
+    } else {
+      console.log(
+        "Reset completed: loaded project files from local projects.zip",
+      );
+    }
   } catch (zipError) {
     // Fall back to legacy hardcoded files
     console.warn(
@@ -33,6 +40,7 @@ export async function resetFiles(
       zipError,
     );
     await (await import("./full.js")).resetFiles(fs, projects);
+    console.log("Reset completed: legacy built-in project files loaded");
   }
 }
 
@@ -57,17 +65,23 @@ export async function createFiles(
   fs: FileSystem,
   options?: LoadFromZipOptions,
 ) {
+  console.log("Initializing: creating browser memory files (projects)...");
   try {
-    // Try ZIP-based loading first
-    await createFromZip(fs, PROJECTS_ZIP_URL, options);
-    console.log("Successfully created project files from ZIP");
+    const source = await createFromZip(fs, PROJECTS_ZIP_URL, options);
+    if (source === "release") {
+      console.log("Create completed: created project files from release ZIP");
+    } else {
+      console.log(
+        "Create completed: created project files from local projects.zip",
+      );
+    }
   } catch (zipError) {
-    // Fall back to legacy hardcoded files
     console.warn(
       "ZIP loading failed, falling back to legacy loader:",
       zipError,
     );
     await (await import("./full.js")).createFiles(fs);
+    console.log("Create completed: legacy built-in project files loaded");
   }
 }
 
