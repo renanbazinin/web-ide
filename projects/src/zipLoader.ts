@@ -14,7 +14,7 @@ import JSZip from "jszip";
  * This URL always points to the latest release.
  */
 export const PROJECTS_ZIP_URL =
-  "https://renanbazinin.github.io/projects/projects.zip";
+  "https://renabazinin.github.io/projects/projects.zip";
 
 /**
  * Get the fallback URL for projects.zip served locally.
