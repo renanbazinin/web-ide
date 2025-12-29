@@ -11,7 +11,7 @@ import JSZip from "jszip";
 
 /**
  * URL to the latest projects.zip from GitHub releases.
- * This URL always points to the latest release.
+ * This URL always points to the latest release. (readl github io domain needed)
  */
 export const PROJECTS_ZIP_URL =
   "https://renabazinin.github.io/projects/projects.zip";
