@@ -2,8 +2,8 @@ import { FileSystem } from "@davidsouther/jiffies/lib/esm/fs.js";
 import { type Projects } from "./full.js";
 import {
   createFromZip,
-  loadFromZip,
   type LoadFromZipOptions,
+  loadFromZip,
   PROJECTS_ZIP_URL,
   resetFromZip,
 } from "./zipLoader.js";
@@ -101,6 +101,7 @@ export async function loadSolutions(fs: FileSystem) {
   (await import("./testing/index.js")).loadSolutions(fs);
 }
 
+export type { LoadFromZipOptions } from "./zipLoader.js";
 /**
  * Re-export ZIP loader for direct access when needed.
  */
@@ -113,8 +114,6 @@ export {
   PROJECTS_ZIP_URL,
   resetFromZip,
 } from "./zipLoader.js";
-
-export type { LoadFromZipOptions } from "./zipLoader.js";
 
 export const loaders = {
   resetFiles,
